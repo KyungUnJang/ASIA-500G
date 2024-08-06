@@ -1,0 +1,2 @@
+# ASIA-500G
+RTK GPS VER
