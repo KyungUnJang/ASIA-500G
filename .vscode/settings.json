@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "define.h": "c",
+        "bsp_uart.h": "c",
+        "def.h": "c",
+        "task.h": "c",
+        "motor.h": "c",
+        "indicate.h": "c",
+        "stm32f103xe.h": "c",
+        "cli.h": "c",
+        "main.h": "c",
+        "bsp_adc.h": "c",
+        "keyscan.h": "c",
+        "time.h": "c",
+        "hw_config.h": "c",
+        "debug.h": "c",
+        "stm32f1xx_hal_i2c.h": "c",
+        "stm32f1xx_hal.h": "c",
+        "at24_eep.h": "c",
+        "hw_def.h": "c"
+    }
+}

@@ -1,0 +1,13 @@
+../Core/bsp/motor.c:53:9:is_DriveKey	4	static
+../Core/bsp/motor.c:76:6:DM_Stop	4	static
+../Core/bsp/motor.c:86:6:DRV_Control	8	static
+../Core/bsp/motor.c:225:9:is_StrringKey	4	static
+../Core/bsp/motor.c:248:6:SM_Stop	4	static
+../Core/bsp/motor.c:259:6:STR_Control	8	static
+../Core/bsp/motor.c:334:6:PUMP_Control	8	static
+../Core/bsp/motor.c:573:6:FAN_Control	4	static
+../Core/bsp/motor.c:646:6:pn_PumpOn	8	static
+../Core/bsp/motor.c:684:6:all_MotorStop	8	static
+../Core/bsp/motor.c:773:6:str_MotorLimitStop	8	static
+../Core/bsp/motor.c:783:6:Init_DrvPortSet	8	static
+../Core/bsp/motor.c:795:6:Motor_Control	8	static

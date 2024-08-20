@@ -1,0 +1,10 @@
+bsp_uart.c:35:6:uartInit	2
+bsp_uart.c:46:6:uartOpen	7
+bsp_uart.c:138:6:uartClose	1
+bsp_uart.c:143:10:uartAvailable	3
+bsp_uart.c:168:9:uartRead	3
+bsp_uart.c:186:10:uartWrite	5
+bsp_uart.c:218:10:uartPrintf	1
+bsp_uart.c:236:10:uartGetBaud	3
+bsp_uart.c:258:6:HAL_UART_ErrorCallback	1
+bsp_uart.c:265:6:HAL_UART_RxCpltCallback	1

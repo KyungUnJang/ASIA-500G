@@ -1,0 +1,6 @@
+at24_eep.c:51:5:at24_HAL_WriteBytes	7
+at24_eep.c:86:5:at24_HAL_ReadBytes	6
+at24_eep.c:132:5:at24_HAL_SequentialRead	4
+at24_eep.c:160:5:at24_HAL_EraseMemFull	2
+at24_eep.c:190:5:at24_HAL_WriteString	2
+at24_eep.c:212:5:at24_HAL_ReadString	2

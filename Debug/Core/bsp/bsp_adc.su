@@ -1,0 +1,6 @@
+../Core/bsp/bsp_adc.c:24:10:ADC_DMA_AVERAGE	24	static
+../Core/bsp/bsp_adc.c:45:6:bsp_adc_init	8	static
+../Core/bsp/bsp_adc.c:50:6:get_adc_value	8	static
+../Core/bsp/bsp_adc.c:113:7:map_function	32	static
+../Core/bsp/bsp_adc.c:119:7:multiMap	48	static
+../Core/bsp/bsp_adc.c:130:6:get_remote_val	8	static

@@ -1,0 +1,6 @@
+bsp_adc.c:24:10:ADC_DMA_AVERAGE	3
+bsp_adc.c:45:6:bsp_adc_init	1
+bsp_adc.c:50:6:get_adc_value	1
+bsp_adc.c:113:7:map_function	1
+bsp_adc.c:119:7:multiMap	5
+bsp_adc.c:130:6:get_remote_val	5
