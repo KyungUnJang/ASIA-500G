@@ -1,10 +1,3 @@
-/*
- * at24_hal_i2c.h
- *
- *  Created on: Sep,11,2015
- *      Author: Sina Darvishi
- */
-
 #ifndef DRIVERS_MYLIB_AT24_HAL_I2C_H_
 #define DRIVERS_MYLIB_AT24_HAL_I2C_H_
 

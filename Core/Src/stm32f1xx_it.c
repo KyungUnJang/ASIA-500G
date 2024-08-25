@@ -297,12 +297,19 @@ void USB_LP_CAN1_RX0_IRQHandler(void) {
 		CAN_RxData_Error[0] = CanRxData.Data[0];	
 		CAN_RxData_Error[1] = CanRxData.Data[1];
 		CAN_RxData_Error[2] = CanRxData.Data[2];	
+
+		CAN_RX_FND_Error[0] = CanRxData.Data[0];	
+		CAN_RX_FND_Error[1] = CanRxData.Data[1];
+		CAN_RX_FND_Error[2] = CanRxData.Data[2];	
+		#if 0 
 		CAN_RxData_Error[3] = CanRxData.Data[3];
 		CAN_RxData_Error[4] = CanRxData.Data[4];	
 		CAN_RxData_Error[5] = CanRxData.Data[5];
 		CAN_RxData_Error[6] = CanRxData.Data[6];	
 		CAN_RxData_Error[7] = CanRxData.Data[7];	
+		#endif 
 		can1_Trans8b(0x03);
+		can1_Trans8b(0x04);
 	
 		Received_canID = rxHeader.StdId;
 		Received_canIDType = rxHeader.IDE;

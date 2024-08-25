@@ -1,10 +1,3 @@
-/*
- * cli.c
- *
- *  Created on: 2020. 12. 19.
- *      Author: baram
- */
-
 #include "cli.h"
 #include "bsp_uart.h"
 #include "indicate.h"

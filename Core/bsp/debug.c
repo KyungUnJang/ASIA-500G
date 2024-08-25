@@ -1,4 +1,3 @@
-
 /* includes */
 #include "hw_config.h"
 #include "debug.h"
@@ -7,35 +6,43 @@
 #include "keyscan.h"
 uint32_t RTK_check_dly = 0;
 uint8_t RTK_check_flag = 0;
+
+
 /* functions */
 /* DATA [0] */
 /*
-1	#define ERR_DRIVE_DONE            0   // 주행완료 
-2	#define ERR_FLASH_READ            1   //메로리 로드 실패 
-4	#define ERR_OUT_ROAD            2   //경로 이탈 
-8	#define ERR_MEMORY_OVER         3   //메모리 용량 초과 
-16	#define ERR_REMOCON            4   //리모컨 인식 실패 
-32	#define ERR_collision               5   // 충돌 감지 
-64	#define ERR_LOW_BAT            6   //저전압 경보 
-128	#define ERR_IMU_COMM_ERR         7   //IMU 통신 에러
+&= ~0x15
+00010101
+1	#define ERR_DRIVE_DONE            0   // 주행완료              SW
+2	#define ERR_FLASH_READ            1   //메로리 로드 실패       RESET
+4	#define ERR_OUT_ROAD            2   //경로 이탈                SW
+8	#define ERR_MEMORY_OVER         3   //메모리 용량 초과         RESET
+16	#define ERR_REMOCON            4   //리모컨 인식 실패          SW
+32	#define ERR_collision               5   // 충돌 감지           RESET
+64	#define ERR_LOW_BAT            6   //저전압 경보 			   RESET
+128	#define ERR_IMU_COMM_ERR         7   //IMU 통신 에러           RESET
 */
 
 /* DATA [1] */
 /*
-1	#define ERR_HEADING_ERR         8   //헤딩 체크 에러 
-2	#define ERR_START_DIS_ERR         9   // 출발 거리 에러 
-4	#define ERR_FIND_COURSE_ERR      10   //경로 찾기 에러 
-8	#define ERR_COURSE_CHG_ERR      11   //경로 변경 에러  
-16	#define ERR_CENTER_SWITCH_ERR   12   // 센터 스위치 안맞음 에러 
-32	#define ERR_IMU_ACK_ERR         13   //IMU SENSOR 에러 
-64	#define ERR_RTK_MCU_CAN         14		// RTK CAN 에러
-128	#define ERR_IMU_MCU_CAN         15		// IMU CAN 에러
+&= ~0x3F
+00111111
+1	#define ERR_HEADING_ERR         8   //헤딩 체크 에러 			   SW
+2	#define ERR_START_DIS_ERR         9   // 출발 거리 에러            SW
+4	#define ERR_FIND_COURSE_ERR      10   //경로 찾기 에러  		   SW
+8	#define ERR_COURSE_CHG_ERR      11   //경로 변경 에러  			   SW
+16	#define ERR_CENTER_SWITCH_ERR   12   // 센터 스위치 안맞음 에러 	SW
+32	#define ERR_IMU_ACK_ERR         13   //IMU SENSOR 에러             SW
+64	#define ERR_RTK_MCU_CAN         14		// RTK CAN 에러            RESET
+128	#define ERR_IMU_MCU_CAN         15		// IMU CAN 에러            RESET
 
 
 /* DATA [2] */
 /*
-8   #define ERR_CAR_MCU_CAN         16 		// 크래블 <-> 아세아 CAN 에러
-16  #define ERR_FIND_COURSE_OK      17		// 경로찾기 OK
+&= ~0x02
+00000010
+8   #define ERR_CAR_MCU_CAN         16 		// 크래블 <-> 아세아 CAN 에러   RESET 의미가없네?
+16  #define ERR_FIND_COURSE_OK      17		// 경로찾기 OK					SW
 
 */
 
@@ -51,6 +58,7 @@ void CAN_ER_Decode()
 		uSysStatusFlag |= a_NotCondition;
 		Bcon_dly = 2700;
 		CAN_RxData_Error[1] &= ~ 0x01;
+		
 	}
 	else if ( CAN_RxData_Error[1] & 0x02 )
 	{
@@ -70,7 +78,6 @@ void CAN_ER_Decode()
 	}
 	else if ( CAN_RxData_Error[1] & 0x08 )
 	{
-		
 		cliPrintf("%sLocation change Error\r\n",C_RED);
 		cliPrintf("%s",C_NRML);
 		uSysStatusFlag |= a_NotCondition;
@@ -79,7 +86,6 @@ void CAN_ER_Decode()
 	}
 	else if ( CAN_RxData_Error[1] & 0x10 )
 	{
-
 		cliPrintf("%sCenter SW Error\r\n",C_RED);
 		cliPrintf("%s",C_NRML);
 		uSysStatusFlag |= a_NotCondition;
@@ -88,7 +94,6 @@ void CAN_ER_Decode()
 	}
 	else if ( CAN_RxData_Error[1] & 0x20 )
 	{
-
 		cliPrintf("%sIMU CAL Error\r\n",C_RED);
 		cliPrintf("%s",C_NRML);
 		uSysStatusFlag |= a_NotCondition;
@@ -97,31 +102,24 @@ void CAN_ER_Decode()
 	}
 	else if ( CAN_RxData_Error[1] & 0x40 )
 	{
-
 		cliPrintf("%sRTK CAN Error\r\n",C_RED);
 		cliPrintf("%s",C_NRML);
-		
 		CAN_RxData_Error[1] &= ~ 0x40;	
 	}
 	else if ( CAN_RxData_Error[1] & 0x80 )
 	{
-
 		cliPrintf("%sIMU CAN Error\r\n",C_RED);
 		cliPrintf("%s",C_NRML);
-		
 		CAN_RxData_Error[1] &= ~ 0x80;	
 	}
 	else if ( CAN_RxData_Error[2] & 0x01 )
 	{
-
 		cliPrintf("%sCAR CAN Error\r\n",C_RED);
 		cliPrintf("%s",C_NRML);
-		
 		CAN_RxData_Error[2] &= ~ 0x01;	
 	}
 	else if ( CAN_RxData_Error[2] & 0x02 )
 	{
-
 		cliPrintf("%sLocation FIND OK \r\n",C_RED);
 		cliPrintf("%s",C_NRML);
 		uSysStatusFlag |= a_Auto_Ready;
@@ -156,7 +154,7 @@ void CAN_DT_Decode()
 		uSysStatusFlag |= a_NotCondition;
 		//uSysStatusFlag &= ~ frk_AutoDrv;
 		uSysStatusFlag &= ~f_AutoRun;
-		//uSysStatusFlag &= ~f_TraceLine; /* ������ ���� �� */
+		//uSysStatusFlag &= ~f_TraceLine; /*    */
 		//uSysStatusFlag &= ~f_smartConnected;
 		//Drive_REQ(KEY_AUTORUN);
 		//Bcon_dly = 3000;		
@@ -173,7 +171,7 @@ void CAN_DT_Decode()
 
 	if (CAN_RxData[0] & 0x80) 
 	{
-		uSysStatusFlag |= f_TraceLine; /* ������ ���� �� */
+		uSysStatusFlag |= f_TraceLine; /*    */
 		smt_Command = (CAN_RxData[1] << 8) | CAN_RxData[0];
 		smt_Command &= 0x008D; /* 0000 0000 1000 1101 Heart Bit & Backward Bit Clear */
 		uSysStatusFlag |= f_smartConnected;
@@ -192,7 +190,7 @@ void CAN_DT_Decode()
 	{
 		if (uSysStatusFlag & f_TraceLine) 
 		{
-			uSysStatusFlag &= ~f_TraceLine; /* ������ ���� �� */
+			uSysStatusFlag &= ~f_TraceLine; /*    */
 			uSysStatusFlag &= ~f_smartConnected;
 			smt_Command = 0;
 			//

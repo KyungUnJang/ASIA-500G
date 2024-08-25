@@ -1,9 +1,4 @@
-/*
- * util.h
- *
- *  Created on: 2021. 2. 13.
- *      Author: baram
- */
+
 
 #ifndef SRC_COMMON_CORE_UTIL_H_
 #define SRC_COMMON_CORE_UTIL_H_

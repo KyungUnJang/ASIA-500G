@@ -1,10 +1,3 @@
-/*
- * uart.h
- *
- *  Created on: 2020. 12. 8.
- *      Author: baram
- */
-
 #ifndef SRC_COMMON_HW_INCLUDE_UART_H_
 #define SRC_COMMON_HW_INCLUDE_UART_H_
 

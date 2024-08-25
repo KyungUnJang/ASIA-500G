@@ -1,9 +1,3 @@
-/*
- * def.h
- *
- *  Created on: Dec 6, 2020
- *      Author: baram
- */
 
 #ifndef SRC_COMMON_DEF_H_
 #define SRC_COMMON_DEF_H_

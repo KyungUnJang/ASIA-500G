@@ -425,6 +425,9 @@ void Drive_REQ(uint8_t Control)
 	case KEY_AUTORUN:
 		if(is_NotUrgency())
 		{
+			CAN_RX_FND_Error[0] &= ~0x15;
+			CAN_RX_FND_Error[1] &= ~0x3F;
+			CAN_RX_FND_Error[2] &= ~0x02;
 			// 조건을 먼저 판단해야 된다. All Motor Stop 상태에서
 			// All Motor Stop 이 아닌 경우 는 ? (일단 걍 둔다.)
 			// Start는 Start는 조향, 구동 모터가 정지된 상태에서 입력 받는다. 

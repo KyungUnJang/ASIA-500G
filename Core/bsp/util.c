@@ -1,10 +1,3 @@
-/*
- * util.c
- *
- *  Created on: 2021. 2. 13.
- *      Author: baram
- */
-
 
 #include "util.h"
 

@@ -7,6 +7,7 @@ extern init_setting load_value;
 extern uint8_t center_start;
 extern uint8_t CAN_RxData[4];
 extern uint8_t CAN_RxData_Error[8];
+extern uint8_t CAN_RX_FND_Error[8];
 extern char info[9];
 typedef struct 
 {

@@ -1,13 +1,4 @@
-/*
- * uart.c
- *
- *  Created on: 2020. 12. 8.
- *      Author: baram
- */
-
-
 #include "bsp_uart.h"
-
 #include "qbuffer.h"
 #include "stm32f1xx_hal.h"
 #include "main.h"

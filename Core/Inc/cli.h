@@ -1,10 +1,3 @@
-/*
- * cli.h
- *
- *  Created on: 2020. 12. 19.
- *      Author: baram
- */
-
 #ifndef SRC_COMMON_HW_INCLUDE_CLI_H_
 #define SRC_COMMON_HW_INCLUDE_CLI_H_
 

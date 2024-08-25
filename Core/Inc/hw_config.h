@@ -1,11 +1,3 @@
-/*
- * (C) COPYRIGHT 2009 CRZ
- *
- * File Name : hw_config.h
- * Author    : POOH
- * Version   : V1.0
- * Date      : 08/12/2009
- */
 
 #ifndef __HW_CONFIG_H
 #define __HW_CONFIG_H
@@ -104,7 +96,7 @@ extern uint8_t FanTKPWM;
 extern uint8_t DRV_PWMDuty;
 extern uint8_t STR_PWMDuty;
 extern uint16_t FAN_PWMDuty;
-extern uint8_t DRV_Speed;			/* 1.2.3.4.5 �� */ 
+extern uint8_t DRV_Speed;			/* 1.2.3.4.5  */ 
 extern uint8_t smt_DRVSpeed;
 
 extern uint8_t FAN_Speed;			/* FAN Speed 1,2,3 */
@@ -117,10 +109,10 @@ extern uint8_t smt_DbgCommand;
 extern uint8_t can_DbgCommand;
 
 
-extern uint8_t WLEmptyCnt1;			/* ���� Empty Count 4�� */
-extern uint8_t WLEmptyCnt2;			/* ��ü Empty Count 4�� */
-extern uint8_t WLFullCnt1;			/* ���� Full Count  2�� */
-extern uint8_t WLFullCnt2;			/* ��ü Full Count  2�� */
+extern uint8_t WLEmptyCnt1;			/*  Empty Count 4 */
+extern uint8_t WLEmptyCnt2;			/*  Empty Count 4 */
+extern uint8_t WLFullCnt1;			/*  Full Count  2 */
+extern uint8_t WLFullCnt2;			/*  Full Count  2 */
 
 extern uint8_t u8_pumpspdCnt;
 extern uint8_t u8_AutospdCnt;

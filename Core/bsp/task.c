@@ -12,6 +12,7 @@ uint32_t ms_cnt = 0;
 
 uint8_t CAN_RxData[4];
 uint8_t CAN_RxData_Error[8];
+uint8_t CAN_RX_FND_Error[8];
 uint32_t can_Init_time;
 CanTxMsg TxMessage;
 uint32_t TxMailbox;
@@ -139,18 +140,26 @@ void can1_Trans8b(uint8_t Command)
 
 	case 0x03:
 	{	
-		TxMessage.Data[0] = CAN_RxData_Error[0];
-		TxMessage.Data[1] = CAN_RxData_Error[1];
-		TxMessage.Data[2] = CAN_RxData_Error[2];	
-		TxMessage.Data[3] = CAN_RxData_Error[3];
-		TxMessage.Data[4] = CAN_RxData_Error[4];	
-		TxMessage.Data[5] = CAN_RxData_Error[5];
-		TxMessage.Data[6] = CAN_RxData_Error[6];	
-		TxMessage.Data[7] = CAN_RxData_Error[7];
+		
+		for(uint8_t i = 0; i < 8; i++)
+		{
+			TxMessage.Data[i] = CAN_RxData_Error[i];
+		}
+		
 		txHeader.StdId = 0x501;
 		HAL_CAN_AddTxMessage(&hcan, &txHeader, &TxMessage.Data, &TxMailbox);
 	}
-
+	break;
+	case 0x04:
+	{	
+		for(uint8_t i = 0; i < 8; i++)
+		{
+			TxMessage.Data[i] = CAN_RX_FND_Error[i];
+		}
+		txHeader.StdId = 0x502;
+		HAL_CAN_AddTxMessage(&hcan, &txHeader, &TxMessage.Data, &TxMailbox);
+	}
+	break;
 	default:
 		break;
 	
@@ -251,30 +260,25 @@ void Timer_Event()
 
 void bsp_can_init()
 {
-    TxMessage.Data[0] = 0x11; 
-    TxMessage.Data[1] = 0;
-    TxMessage.Data[2] = 0;
-    TxMessage.Data[3] = 0x44;
+    
     txHeader.DLC = 8;
     txHeader.IDE = CAN_ID_STD;
     txHeader.RTR = CAN_RTR_DATA;
     txHeader.StdId = 0x737;
-    
     txHeader.TransmitGlobalTime = DISABLE;
-
     
 	
-  	sFilterConfig.FilterFIFOAssignment=CAN_FILTER_FIFO0; //set fifo assignment
-	sFilterConfig.FilterIdHigh=0x737; //the ID that the filter looks for (switch this for the other microcontroller)
+  	sFilterConfig.FilterFIFOAssignment=CAN_FILTER_FIFO0; 
+	sFilterConfig.FilterIdHigh=0x737; 
 	sFilterConfig.FilterIdLow=0;
 	sFilterConfig.FilterMaskIdHigh=0;
 	sFilterConfig.FilterMaskIdLow=0;
-	sFilterConfig.FilterScale=CAN_FILTERSCALE_32BIT; //set filter scale
+	sFilterConfig.FilterScale=CAN_FILTERSCALE_32BIT; 
 	sFilterConfig.FilterActivation=ENABLE;
 	
-	HAL_CAN_ConfigFilter(&hcan, &sFilterConfig); //configure CAN filter
-	HAL_CAN_Start(&hcan); //start CAN
-	HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING); //enable interrupts
+	HAL_CAN_ConfigFilter(&hcan, &sFilterConfig); 
+	HAL_CAN_Start(&hcan); 
+	HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING); 
 
 }
 
@@ -422,7 +426,7 @@ uint32_t PC_Data;
 uint32_t Temp_Data;
 
 
-void Port_ReadACT() // limit SW ?
+void Port_ReadACT() 
 {
 
 	#if 1 
@@ -483,7 +487,7 @@ void Port_ReadACT() // limit SW ?
 	{
 		if((uSysStatusFlag & f_Crash) == 0)
 		{
-			--crash_Cnt;			/* 22012	2 */
+			--crash_Cnt;	
 			if(crash_Cnt == 0)
 			{
 				uSysStatusFlag |= f_Crash;
@@ -497,7 +501,7 @@ void Port_ReadACT() // limit SW ?
 	else
 	{
 		uSysStatusFlag &= ~f_Crash;
-		crash_Cnt = 50;				/* 220122 */
+		crash_Cnt = 50;				
 	}
 }
 
@@ -811,14 +815,10 @@ void WL_Check()
 	if((uSysStatusFlag & f_WLEmpty1) == 0)			/* 견인 물통 Full */
 	{
 		HAL_GPIO_WritePin(GPIOE, E_SOLv_1, GPIO_PIN_RESET);
-    //GPIO_ResetBits(GPIOE,E_SOLv_1);				/* 견인쪽 (세워진 방향)*/
-		//GPIO_ResetBits(GPIOE,E_SOLv_2);			
 	}
 	else
 	{
-    HAL_GPIO_WritePin(GPIOE, E_SOLv_1, GPIO_PIN_SET);
-		//GPIO_SetBits(GPIOE,E_SOLv_1);				/* 본체쪽 (눕혀진 방향)*/
-		//GPIO_SetBits(GPIOE,E_SOLv_2);	
+    	HAL_GPIO_WritePin(GPIOE, E_SOLv_1, GPIO_PIN_SET);
 	}
 	//	
 	uSysStatusFlag &= ~f_ALLWLEmpty;
@@ -891,7 +891,6 @@ void Option_Check()
 	{
 		if((uSysStatusFlag & f_OPT_Pumpspeed) == f_OPT_Pumpspeed)
 			uSysStatusFlag &= ~f_OPT_Pumpspeed; 
-		//
 		//cliPrintf("\n PUMP PRESS LOW-3   ");
 		
 	}
@@ -1003,13 +1002,13 @@ void INIT_Check()
     Bcon_Out();
     R_LED_Off();
     G_LED_On();
-    HAL_Delay(250);
+    HAL_Delay(250); /*보여주기용 delay */ 
         
     bcon_Req = bcon_R;
     Bcon_Out();
     R_LED_On();
     G_LED_Off();
-    HAL_Delay(250);
+    HAL_Delay(250); /*보여주기용 delay */
   }
   //  
   bcon_Req = 0;
@@ -1123,4 +1122,3 @@ void init_set()
 	
 
 }
-/////////////////////////////////////////////////////////////////////////////////
